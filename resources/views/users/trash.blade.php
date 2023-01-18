@@ -50,32 +50,6 @@
 
         </table>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination  justify-content-center">
-                <li class="page-item">
-                    <a class="page-link @disabled(!$users->previousPageUrl())" href="{{ $users->previousPageUrl() }}"
-                       aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
-                </li>
-                @if($users ->currentPage() - 1 > 0)
-                    <li class="page-item"><a class="page-link"
-                                             href="{{ $users->url($users->currentPage() - 1) }}">{{ $users ->currentPage() - 1 }} </a>
-                    </li>
-                @endif
-                <li class="page-item active"><a class="page-link"
-                                                href="{{ $users->url($users->currentPage()) }}">{{ $users->currentPage() }}</a>
-                </li>
-                @if($users->currentPage() + 1 <= $users->lastPage())
-                    <li class="page-item"><a class="page-link"
-                                             href="{{ $users->url($users->currentPage() + 1) }}">{{ $users->currentPage() + 1 }}</a>
-                    </li>
-                @endif
-                <li class="page-item">
-                    <a class="page-link @disabled(!$users->nextPageUrl())" href="{{ $users->nextPageUrl() }}"
-                       aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        {{ $users->links() }}
     @endif
 @endsection

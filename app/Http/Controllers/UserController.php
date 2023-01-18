@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
@@ -29,7 +28,7 @@ class UserController extends Controller
         return view('users/form');
     }
 
-    public function store(StoreUserRequest $request): RedirectResponse
+    public function store(UserRequest $request): RedirectResponse
     {
         $request->validated();
 
@@ -46,11 +45,11 @@ class UserController extends Controller
         return view('users/form', compact('user'));
     }
 
-    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    public function update(UserRequest $request, User $user): RedirectResponse
     {
         $request->validated();
 
-        $user->update($request->only(['name','email']));
+        $user->update($request->only(['name', 'email']));
         return redirect()->route('users.index');
     }
 
