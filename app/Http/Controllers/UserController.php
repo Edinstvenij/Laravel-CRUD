@@ -37,7 +37,7 @@ class UserController extends Controller
         ]);
 
         User::create($request->post());
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Created ' . $request->name);
     }
 
     public function edit(User $user): View
@@ -50,13 +50,13 @@ class UserController extends Controller
         $request->validated();
 
         $user->update($request->only(['name', 'email']));
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Updated ' . $user->name);
     }
 
     public function destroy(User $user): RedirectResponse
     {
         $user->delete();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('danger', 'Deleted ' . $user->name);
     }
 
     public function trash(): View
@@ -68,12 +68,12 @@ class UserController extends Controller
     public function forceDelete(int $userId): RedirectResponse
     {
         User::onlyTrashed()->where('id', $userId)->forceDelete();
-        return redirect()->route('users.trash');
+        return redirect()->route('users.trash')->with('danger', 'Force deleted id: ' . $userId);
     }
 
     public function restore(int $userId): RedirectResponse
     {
         User::onlyTrashed()->where('id', $userId)->restore();
-        return redirect()->route('users.trash');
+        return redirect()->route('users.trash')->with('success', 'Restored id: ' . $userId);
     }
 }

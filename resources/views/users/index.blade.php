@@ -6,7 +6,6 @@
 @section('content')
 
     <div class="mt-2 mb-2" data-bs-theme="dark">
-        <a class="btn btn-secondary" href="{{ route('home') }}">Back</a>
         <a class="btn btn-success" href="{{ route('users.create') }}">Create user</a>
         <a class="btn btn-danger" href="{{ route('users.trash') }}">Trash</a>
     </div>

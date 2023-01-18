@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    return redirect()->route('users.index');
+});
 
 
 Route::prefix('users')->controller(UserController::class)->group(function () {
