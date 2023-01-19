@@ -1,13 +1,13 @@
 @extends('layout')
 
-@section('title', 'Users page')
+@section('title', 'Posts page')
 
 
 @section('content')
 
     <div class="mt-2 mb-2" data-bs-theme="dark">
         <a class="btn btn-secondary" href="{{ route('index') }}">Back</a>
-        <a class="btn btn-success" href="{{ route('posts.create') }}">Create user</a>
+        <a class="btn btn-success" href="{{ route('posts.create') }}">Create post</a>
         <a class="btn btn-danger" href="{{ route('posts.trash') }}">Trash</a>
     </div>
     <table class="table table-dark table-hover">
@@ -26,7 +26,7 @@
                 <td class="table-info">{{ $post->id }}</td>
                 <td class="table-primary">{{ $post->title }}</td>
                 <td class="table-primary">{{ $post->content }}</td>
-                <td class="table-primary">{{ $post->author()->first()->name }}</td>
+                <td class="table-primary">{{ $post->author()->withTrashed()->first()->name }}</td>
                 <form action="{{  route('posts.destroy', $post)  }}" method="POST">
                     @csrf
                     @method('DELETE')

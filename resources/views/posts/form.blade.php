@@ -1,39 +1,45 @@
 @extends('layout')
 
-@section('title', isset($user)? 'Update ' . $user->name : 'Create user')
+@section('title', isset($post) ? 'Update ' . $post->title : 'Create post')
 
 
 @section('content')
     <div class="mt-2 mb-2" data-bs-theme="dark">
-        <a class="btn btn-secondary" href="{{ route('users.index') }}">Back</a>
+        <a class="btn btn-secondary" href="{{ route('posts.index') }}">Back</a>
     </div>
     <form method="post"
-          @if(isset($user))
-              action="{{ route('users.update', $user) }}">
-                 @method('PUT')
+          @if(isset($post))
+              action="{{ route('posts.update', $post) }}">
+        @method('PUT')
         @else
-            action="{{ route('users.store') }}" >
+            action="{{ route('posts.store') }}" >
         @endif
         @csrf
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" name="email"
-                   placeholder="name@example.com" value="{{ isset($user) ? $user->email : old('email') }}">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title"
+                   placeholder="Example title" required value="{{ isset($post) ? $post->title : old('title') }}">
         </div>
 
         <div class="mb-3">
-            <label for="name" class="form-label">Your name</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="name"
-                   value="{{ isset($user) ? $user->name :old('name') }}">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control " name="content" id="content" placeholder="content" maxlength="300 px" required >
+                {{ isset($post) ? $post->content :old('content') }}
+            </textarea>
         </div>
 
-        @if(!isset($user))
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="password"
-                       value="{{ old('password') }}">
-            </div>
-        @endif
+        <div class="mb-3">
+            <label for="author_id" class="form-label">Author</label>
+            <select class="form-select" aria-label="Default select example" name="author_id" required>
+                <option selected>Select author</option>
+                @foreach($users as $user)
+                    <option
+                        @selected(!empty($post) && $post->author->id == $user->id)
+                        value="{{$user->id}}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <button class="btn btn-info" type="submit">Submit</button>
     </form>
 

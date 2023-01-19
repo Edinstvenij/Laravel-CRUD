@@ -34,11 +34,11 @@
                     <td class="table-primary">{{ $user->email }}</td>
                     <td class="table-primary">
                         @if($user->email_verified_at)
-                            {{ $user->email_verified_at->format('d-M-y') }}
+                            {{ $user->email_verified_at->format('d.m.Y H:i:s') }}
                         @endif
                     </td>
-                    <td class="table-primary">{{ $user->created_at->format('d-M-y') }}</td>
-                    <td class="table-primary">{{ $user->updated_at->format('d-M-y')?? '' }}</td>
+                    <td class="table-primary">{{ $user->created_at->format('d.m.Y H:i:s') }}</td>
+                    <td class="table-primary">{{ $user->updated_at->format('d.m.Y H:i:s')?? '' }}</td>
                     <td class="table-danger"><a class="btn"
                                                 href="{{ route('users.forceDelete', $user)  }}">&#10060;</a>
                     </td>
