@@ -47,8 +47,8 @@ class User extends Authenticatable
     /**
      * Get the post that owns the author.
      */
-    public function posts(): HasMany
+    public function posts(): hasMany
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class, 'author_id', 'id');
     }
 }
