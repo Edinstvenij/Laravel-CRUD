@@ -13,7 +13,7 @@ class UserRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -23,7 +23,7 @@ class UserRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             'name' => ['required', 'min:2', 'max:255',],
@@ -35,7 +35,11 @@ class UserRequest extends FormRequest
             $rules['email'][] = Rule::unique('users')->ignore($this->user->id);
         } else {
             $rules['email'][] = Rule::unique('users');
-            $rules['password'] = ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()];
+            $rules['password'] = ['required', Password::min(8)->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised()];
         }
 
         return $rules;

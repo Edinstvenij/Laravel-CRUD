@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Users page')
+@section('title', 'Users trash page')
 
 
 @section('content')

@@ -18,11 +18,12 @@ Route::get('/', function () {
     return redirect()->route('users.index');
 });
 
-
 Route::prefix('users')->controller(UserController::class)->group(function () {
     Route::get('trash', 'trash')->name('users.trash');
-    Route::get('force-delete/{id}', 'forceDelete')->name('users.forceDelete')->where('user', '[0-9]+');
-    Route::get('restore/{id}', 'restore')->name('users.restore')->where('user', '[0-9]+');
+    Route::get('force-delete/{id}', 'forceDelete')->name('users.forceDelete')
+        ->where('user', '[0-9]+');
+    Route::get('restore/{id}', 'restore')->name('users.restore')
+        ->where('user', '[0-9]+');
 });
 
 Route::resource('users', UserController::class);
